@@ -1,11 +1,24 @@
+from network.report import generate_report
+import sys
 from collections import Counter
 from scapy.all import rdpcap
 from scapy.layers.inet import IP
 from scapy.layers.dns import DNS
 from network.protocol_analysis import analyze_protocols
+from network.ip_analysis import analyze_ips
 
 # Read packets
-packets = rdpcap("captures/sample_capture.pcapng")
+if len(sys.argv) != 2:
+    print("Usage:")
+    print("    python analyzer.py <pcap_file>")
+    print()
+    print("Example:")
+    print("    python analyzer.py captures/sample_capture.pcapng")
+    sys.exit(1)
+
+pcap_file = sys.argv[1]
+
+packets = rdpcap(pcap_file)
 
 print("=" * 50)
 print("WIRESHARK NETWORK ANALYZER")
@@ -14,8 +27,7 @@ print("=" * 50)
 print(f"Total Packets Captured : {len(packets)}")
 print()
 protocols = analyze_protocols(packets)
-source_ips = Counter()
-destination_ips = Counter()
+source_ips, destination_ips = analyze_ips(packets)
 
 packet_sizes = []
 
@@ -26,14 +38,13 @@ for packet in packets:
     packet_sizes.append(len(packet))
 
     if packet.haslayer(IP):
-        source_ips[packet[IP].src] += 1
-        destination_ips[packet[IP].dst] += 1
         conversation = (
-        packet[IP].src,
-        packet[IP].dst
+            packet[IP].src,
+            packet[IP].dst
         )
 
-        conversations[conversation] += 1
+    conversations[conversation] += 1
+
     if packet.haslayer(DNS):
         dns = packet[DNS]
 
@@ -91,4 +102,19 @@ for (src, dst), count in conversations.most_common(10):
     print(f"{dst}")
     print(f"Packets : {count}")
     print()
+
+# Generate report
+generate_report(
+    "reports/network_report.txt",
+    len(packets),
+    protocols,
+    source_ips,
+    destination_ips,
+    dns_queries,
+    packet_sizes,
+    conversations,
+)
+
+print()
+print("✅ Report saved to reports/network_report.txt")
 

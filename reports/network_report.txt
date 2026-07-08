@@ -1,0 +1,60 @@
+=============================================
+WIRESHARK NETWORK ANALYZER REPORT
+=============================================
+
+Total Packets: 14975
+
+Protocol Statistics
+-------------------------
+UDP: 7568
+DNS: 790
+TCP: 7330
+ARP: 20
+
+Top Source IP Addresses
+-------------------------
+192.168.0.167: 5313
+142.251.156.119: 2278
+173.36.125.191: 1122
+106.51.145.72: 836
+192.168.0.1: 484
+
+Top Destination IP Addresses
+-------------------------
+192.168.0.167: 9497
+142.251.156.119: 893
+192.168.0.1: 364
+106.51.145.72: 268
+52.0.213.61: 174
+
+Top DNS Queries
+-------------------------
+neverssl.con: 21
+www.google.com: 10
+lh3.google.com: 8
+ogads-pa.clients6.google.com: 8
+lh3.googleusercontent.com: 8
+ogs.google.com: 8
+www.gstatic.com: 8
+ssl.gstatic.com: 8
+google.com: 8
+play.google.com: 6
+
+Packet Size Statistics
+-------------------------
+Average Packet Size: 686.93 bytes
+Largest Packet: 1494 bytes
+Smallest Packet: 42 bytes
+
+Top Network Conversations
+------------------------------
+142.251.156.119 -> 192.168.0.167 : 2287 packets
+173.36.125.191 -> 192.168.0.167 : 1122 packets
+192.168.0.167 -> 142.251.156.119 : 894 packets
+106.51.145.72 -> 192.168.0.167 : 836 packets
+142.250.206.72 -> 192.168.0.167 : 444 packets
+192.168.0.1 -> 192.168.0.167 : 376 packets
+192.168.0.167 -> 192.168.0.1 : 364 packets
+18.155.99.120 -> 192.168.0.167 : 273 packets
+192.168.0.167 -> 106.51.145.72 : 268 packets
+142.251.223.14 -> 192.168.0.167 : 214 packets
